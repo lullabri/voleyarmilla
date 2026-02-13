@@ -1,0 +1,14 @@
+name = "voleyarmilla"
+main = "_worker.js"
+compatibility_date = "2025-01-01"
+
+[assets]
+directory = "."
+
+[[durable_objects.bindings]]
+name = "SCOREBOARD"
+class_name = "ScoreboardDO"
+
+[[migrations]]
+tag = "v1"
+new_classes = ["ScoreboardDO"]

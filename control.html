@@ -1,0 +1,27 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><style>
+body{font-family:Arial;margin:20px}
+button,input{margin:5px;padding:8px}
+</style></head>
+<body>
+<h2>Control</h2>
+<input id="hn" placeholder="Local">
+<button onclick="patch('home','name',hn.value)">Guardar</button>
+<button onclick="act('HOME_POINT')">+ Punto Local</button>
+<br><br>
+<input id="an" placeholder="Visitante">
+<button onclick="patch('away','name',an.value)">Guardar</button>
+<button onclick="act('AWAY_POINT')">+ Punto Visitante</button>
+<br><br>
+<button onclick="act('SWAP_SIDES')">Cambiar lados</button>
+<button onclick="act('RESET_MATCH')">Reset</button>
+
+<script>
+const ws=new WebSocket((location.protocol==="https:"?"wss://":"ws://")+location.host+"/ws");
+function act(a){ws.send(JSON.stringify({type:"action",action:a}))}
+function patch(team,key,val){
+const p={};p[team]={};p[team][key]=val;
+ws.send(JSON.stringify({type:"patch",patch:p}))
+}
+</script>
+</body></html>
